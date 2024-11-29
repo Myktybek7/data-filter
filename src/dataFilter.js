@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
-const DataFilterComponent = () => {
-  const [dataList, setDataList] = useState([]);
+const FilterData = () => {
+  const [dataList, makeDataList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://api.example.com/data');
-        const data = await response.json();
-        setDataList(data);
-        setFilteredData(data);
-      } catch (error) {
-        console.error("Error data downloading:", error);
-      }
-    };
-
-    fetchData();
+    const sampleData = [
+      "Myktybek", "Sultan", "Kana", "Numu", "Beka",
+      "Ulan", "Isko", "Adyl", "Nurbek", "Eldos"
+    ];
+    
+    makeDataList(sampleData);
+    setFilteredData(sampleData);
   }, []);
 
   useEffect(() => {
@@ -33,19 +28,23 @@ const DataFilterComponent = () => {
         type="text" 
         value={searchQuery} 
         onChange={(e) => setSearchQuery(e.target.value)} 
-        placeholder="Searching..." 
+        placeholder="Поиск..." 
+        style={{ padding: '10px', width: '200px', marginBottom: '20px', fontSize: '16px' }}
       />
-      <ul>
+      
+      <ul style={{ listStyleType: 'none', paddingLeft: '0' }}>
         {filteredData.length > 0 ? (
           filteredData.map((item, index) => (
-            <li key={index}>{item}</li>
+            <li key={index} style={{ padding: '5px 0', fontSize: '18px' }}>
+              {item}
+            </li>
           ))
         ) : (
-          <li>There are no coincidence</li>
+          <li style={{ padding: '5px 0', color: 'gray' }}>Нет совпадений</li>
         )}
       </ul>
     </div>
   );
 };
 
-export default DataFilterComponent;
+export default FilterData;
