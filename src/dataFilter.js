@@ -18,6 +18,10 @@ const DataFilterComponent = () => {
     fetchData();
   }, []);
 
+  const filteredData = dataList.filter(item =>
+    item.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div>
       <input 
@@ -27,9 +31,13 @@ const DataFilterComponent = () => {
         placeholder="Searching..." 
       />
       <ul>
-        {dataList.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
+        {filteredData.length > 0 ? (
+          filteredData.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))
+        ) : (
+          <li>There are no coincidence</li>
+        )}
       </ul>
     </div>
   );
