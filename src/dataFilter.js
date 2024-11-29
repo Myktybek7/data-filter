@@ -28,7 +28,7 @@ const FilterData = () => {
         type="text" 
         value={searchQuery} 
         onChange={(e) => setSearchQuery(e.target.value)} 
-        placeholder="Поиск..." 
+        placeholder="Searching..." 
         style={{ padding: '10px', width: '200px', marginBottom: '20px', fontSize: '16px' }}
       />
       
@@ -40,7 +40,7 @@ const FilterData = () => {
             </li>
           ))
         ) : (
-          <li style={{ padding: '5px 0', color: 'gray' }}>Нет совпадений</li>
+          <li style={{ padding: '5px 0', color: 'gray' }}>There are no coincidence</li>
         )}
       </ul>
     </div>
