@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const DataFilterComponent = () => {
   const [dataList, setDataList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -10,17 +11,21 @@ const DataFilterComponent = () => {
         const response = await fetch('https://api.example.com/data');
         const data = await response.json();
         setDataList(data);
+        setFilteredData(data);
       } catch (error) {
-        console.error("Error data downloading", error);
+        console.error("Error data downloading:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  const filteredData = dataList.filter(item =>
-    item.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  useEffect(() => {
+    const filtered = dataList.filter(item =>
+      item.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredData(filtered);
+  }, [searchQuery, dataList]);
 
   return (
     <div>
